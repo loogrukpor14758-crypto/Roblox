@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Butter & Bloom — เบเกอรี่อบสด เริ่ม 39 บาท</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: #FFF8EE;
+      color: #3B2A20;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    button { font-family: inherit; cursor: pointer; }
+    a { color: inherit; }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== NAVBAR ===== */
+    header {
+      background: #FFF8EE;
+      border-bottom: 1px solid #eee;
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .logo { font-size: 20px; font-weight: 700; white-space: nowrap; }
+    .logo span { color: #B65A5A; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 24px;
+    }
+    .nav-links a {
+      text-decoration: none; font-size: 14px; font-weight: 500;
+      transition: 0.2s;
+    }
+    .nav-links a:hover { color: #B65A5A; }
+
+    /* Hamburger (ซ่อนบน desktop) */
+    .hamburger {
+      display: none;
+      background: none; border: none;
+      width: 44px; height: 44px;
+      align-items: center; justify-content: center;
+      flex-direction: column; gap: 5px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: #3B2A20; transition: 0.3s;
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu dropdown */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: #FFF8EE;
+      border-top: 1px solid #eee;
+      padding: 16px 20px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 12px 0;
+      text-decoration: none;
+      font-size: 15px;
+      border-bottom: 1px solid #f0e8dd;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ===== BUTTON ===== */
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: #3B2A20; color: #fff;
+      text-decoration: none;
+      font-weight: 600; font-size: 15px;
+      transition: 0.2s;
+      border: none;
+      text-align: center;
+      min-height: 48px;
+      line-height: 1.4;
+    }
+    .btn:hover { background: #B65A5A; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: #3B2A20;
+      border: 1.5px solid #3B2A20;
+    }
+    .btn-outline:hover { background: #3B2A20; color: #fff; }
+
+    /* ===== HERO ===== */
+    .hero {
+      text-align: center;
+      padding: clamp(40px, 8vw, 80px) 0 clamp(30px, 6vw, 60px);
+    }
+    .hero .badge {
+      display: inline-block;
+      background: #D9A06622;
+      color: #8B5E3C;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: clamp(11px, 2.5vw, 13px);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 7vw, 52px);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .hero h1 em { color: #B65A5A; font-style: normal; }
+    .hero p {
+      font-size: clamp(14px, 2.5vw, 16px);
+      color: #3B2A20aa;
+      max-width: 520px;
+      margin: 0 auto 28px;
+      padding: 0 8px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 0 8px;
+    }
+    .hero-buttons .btn { flex: 1 1 auto; min-width: 160px; max-width: 240px; }
+
+    /* ===== FEATURES ===== */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      padding: clamp(24px, 5vw, 40px) 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+    .feature { text-align: center; padding: 8px; }
+    .feature .icon { font-size: clamp(22px, 5vw, 28px); margin-bottom: 6px; }
+    .feature h3 { font-size: clamp(13px, 2.5vw, 15px); font-weight: 600; margin-bottom: 4px; }
+    .feature p { font-size: clamp(11px, 2.2vw, 13px); color: #3B2A20aa; }
+
+    /* ===== SECTION TITLE ===== */
+    .section-head { text-align: center; margin-bottom: 32px; }
+    .section-head h2 {
+      font-size: clamp(22px, 4.5vw, 32px);
+      margin-bottom: 6px;
+    }
+    .section-head .sub {
+      font-size: clamp(12px, 2.3vw, 14px);
+      color: #3B2A20aa;
+    }
+
+    /* ===== PRODUCT GRID ===== */
+    .menu-section { padding: clamp(40px, 8vw, 64px) 0; }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: clamp(14px, 3vw, 20px);
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      transition: 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .product-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+    .product-info {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .product-info h3 {
+      font-size: clamp(15px, 2.5vw, 16px);
+      margin-bottom: 4px;
+    }
+    .product-info .price {
+      color: #B65A5A;
+      font-weight: 700;
+      font-size: clamp(17px, 3vw, 20px);
+      margin-bottom: 12px;
+    }
+    .product-info .order-btn {
+      margin-top: auto;
+      padding: 12px;
+      border-radius: 999px;
+      background: #3B2A20;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      transition: 0.2s;
+      min-height: 44px;
+    }
+    .product-info .order-btn:hover { background: #B65A5A; }
+
+    /* ===== PRICING ===== */
+    .pricing {
+      padding: clamp(40px, 8vw, 64px) 0;
+      background: #fff;
+    }
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: clamp(16px, 3vw, 24px);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .price-card {
+      border: 1.5px solid #eee;
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: 0.2s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .price-card:hover { border-color: #D9A066; transform: translateY(-2px); }
+    .price-card.popular { border-color: #B65A5A; }
+    .price-card.popular::before {
+      content: "🔥 ขายดี";
+      position: absolute;
+      top: -12px; left: 50%;
+      transform: translateX(-50%);
+      background: #B65A5A;
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .price-card h3 { font-size: 18px; margin-bottom: 8px; }
+    .price-card .price-big {
+      font-size: clamp(30px, 5vw, 38px);
+      font-weight: 700;
+      color: #B65A5A;
+      margin-bottom: 16px;
+    }
+    .price-card .price-big span {
+      font-size: 13px;
+      font-weight: 400;
+      color: #3B2A20aa;
+    }
+    .price-card ul {
+      list-style: none;
+      margin: 0 0 20px;
+      text-align: left;
+      font-size: 14px;
+      flex: 1;
+    }
+    .price-card ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .price-card ul li:last-child { border-bottom: none; }
+    .price-card ul li::before {
+      content: "✓ ";
+      color: #B65A5A;
+      font-weight: 700;
+    }
+    .price-card .btn {
+      width: 100%;
+      margin-top: auto;
+    }
+
+    /* ===== CTA BOTTOM ===== */
+    .cta-bottom {
+      text-align: center;
+      padding: clamp(40px, 8vw, 70px) 20px;
+      background: #3B2A20;
+      color: #fff;
+    }
+    .cta-bottom h2 {
+      font-size: clamp(22px, 4.5vw, 30px);
+      margin-bottom: 12px;
+    }
+    .cta-bottom p {
+      color: #ffffffaa;
+      margin-bottom: 24px;
+      font-size: clamp(13px, 2.5vw, 15px);
+    }
+    .cta-bottom .btn { background: #D9A066; color: #3B2A20; }
+    .cta-bottom .btn:hover { background: #fff; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 24px 20px;
+      font-size: 13px;
+      color: #3B2A20aa;
+      background: #FFF8EE;
+    }
+
+    /* ===== RESPONSIVE ===== */
+
+    /* แท็บเล็ต (768px ลงมา) */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+    }
+
+    /* มือถือ (480px ลงมา) */
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+
+      .hero-buttons .btn {
+        flex: 1 1 100%;
+        max-width: none;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card { padding: 28px 20px; }
+
+      .features {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+    }
+
+    /* iPad แนวนอน (1024px) */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .container { padding: 0 32px; }
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Butter <span>&</span> Bloom</div>
+
+        <div class="nav-links">
+          <a href="#menu">เมนู</a>
+          <a href="#pricing">เซ็ตขนม</a>
+          <a href="#contact">ติดต่อ</a>
+        </div>
+
+        <button class="hamburger" id="hamburger" aria-label="เปิดเมนู">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="#menu">เมนู</a>
+        <a href="#pricing">เซ็ตขนม</a>
+        <a href="#contact">ติดต่อ</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="badge">🔥 อบสดใหม่ทุกวัน • ส่งไวภายใน 2 ชม.</div>
+      <h1>เบเกอรี่อบเนยแท้<br />เริ่มต้นแค่ <em>39 บาท</em></h1>
+      <p>ครัวซองต์ คุกกี้ และเค้กโฮมเมด สั่งง่าย จ่ายผ่าน PromptPay หรือบัตรเครดิต</p>
+      <div class="hero-buttons">
+        <a href="#menu" class="btn">ดูเมนูทั้งหมด</a>
+        <a href="#pricing" class="btn btn-outline">ดูเซ็ตขนม</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <div class="container">
+    <div class="features">
+      <div class="feature">
+        <div class="icon">🧈</div>
+        <h3>เนยแท้ 100%</h3>
+        <p>ไม่ใช้มาการีน</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🚚</div>
+        <h3>ส่งไว 2 ชม.</h3>
+        <p>ในเขต กทม.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">💳</div>
+        <h3>จ่ายง่าย</h3>
+        <p>PromptPay / บัตร</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <section id="menu" class="menu-section">
+    <div class="container">
+      <div class="section-head">
+        <h2>เมนูฮิต</h2>
+        <p class="sub">กดสั่งได้เลย ไม่ต้องสมัครสมาชิก</p>
+      </div>
+      <div class="product-grid">
+
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800&auto=format&fit=crop" alt="บัตเตอร์ครัวซองต์" loading="lazy" />
+          <div class="product-info">
+            <h3>บัตเตอร์ครัวซองต์</h3>
+            <div class="price">฿39</div>
+            <button class="order-btn">สั่งเลย</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=800&auto=format&fit=crop" alt="คุกกี้ช็อกโกแลตชิป" loading="lazy" />
+          <div class="product-info">
+            <h3>คุกกี้ช็อกโกแลตชิป</h3>
+            <div class="price">฿45</div>
+            <button class="order-btn">สั่งเลย</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=800&auto=format&fit=crop" alt="ช็อกโกแลตฟัดจ์เค้ก" loading="lazy" />
+          <div class="product-info">
+            <h3>ช็อกโกแลตฟัดจ์เค้ก</h3>
+            <div class="price">฿690</div>
+            <button class="order-btn">สั่งเลย</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=800&auto=format&fit=crop" alt="บานาน่าเบรด" loading="lazy" />
+          <div class="product-info">
+            <h3>บานาน่าเบรด</h3>
+            <div class="price">฿89</div>
+            <button class="order-btn">สั่งเลย</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="pricing">
+    <div class="container">
+      <div class="section-head">
+        <h2>เซ็ตขนมคุ้มกว่า</h2>
+        <p class="sub">เหมาะกับจัดงาน เลี้ยงทีม หรือฝากของขวัญ</p>
+      </div>
+      <div class="price-grid">
+
+        <div class="price-card">
+          <h3>เซ็ตเล็ก</h3>
+          <div class="price-big">฿199 <span>/ 6 ชิ้น</span></div>
+          <ul>
+            <li>เลือกขนมได้ 2 ชนิด</li>
+            <li>กล่องสวยพร้อมส่ง</li>
+            <li>ส่งฟรีใน กทม.</li>
+          </ul>
+          <a href="#" class="btn">สั่งเซ็ตนี้</a>
+        </div>
+
+        <div class="price-card popular">
+          <h3>เซ็ตกลาง</h3>
+          <div class="price-big">฿359 <span>/ 12 ชิ้น</span></div>
+          <ul>
+            <li>เลือกขนมได้ 3 ชนิด</li>
+            <li>กล่องพรีเมียม + การ์ด</li>
+            <li>ส่งฟรีใน กทม.</li>
+          </ul>
+          <a href="#" class="btn">สั่งเซ็ตนี้</a>
+        </div>
+
+        <div class="price-card">
+          <h3>เซ็ตใหญ่</h3>
+          <div class="price-big">฿599 <span>/ 24 ชิ้น</span></div>
+          <ul>
+            <li>เลือกขนมได้ 5 ชนิด</li>
+            <li>กล่องของขวัญพิเศษ</li>
+            <li>ส่งฟรีทั่วประเทศ</li>
+          </ul>
+          <a href="#" class="btn">สั่งเซ็ตนี้</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" class="cta-bottom">
+    <h2>พร้อมสั่งเบเกอรี่แล้วหรือยัง?</h2>
+    <p>ทัก LINE @butterandbloom หรือโทร 081-234-5678</p>
+    <a href="#" class="btn">💬 ทัก LINE เลย</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 Butter & Bloom Bakery — เปิด 08:00–18:00 น.
+  </footer>
+
+  <script>
+    // Hamburger Menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // ปิดเมนูเมื่อคลิก link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
